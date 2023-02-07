@@ -1,14 +1,14 @@
-const express = require('express');
+const { Router } = require('express');
+const UserController = require('../controllers/QuestionController');
 
 
-const router = express.Router();
+module.exports = questionRouter = Router();
 
-router.post('/askQuestion',
-    userValidators.validateUserToken,
-    validation.validateAskQue,
-    controller.askQue
+questionRouter.post('/askQuestion',
+    //validação
+    //token
 );
 
-router.get('/',
+questionRouter.get('/',
     controller.getAllQue
 );

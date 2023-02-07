@@ -1,21 +1,40 @@
 const User = require('../models/User');
 
 module.exports = class UserController {
-    async registerAccount(req, res) {
-        const { email } = req.body;
-
+    async registerAsk(req, res) {
         try {
-            const findUserByEmail = await User.findOne({ email });
-            if (findUserByEmail)
-                return res.status(400).send({ error: 'User already exists' });
+            const { title, questionBody, tags } = req.body;
+            const { user } = req;
+            console.log(title, questionBody, tags,user._id);
+            const saveQuestion = await model.Question.create ({
+              title,
+              questionBody,
+              tags,
+              userId: user._id
+            });
+            return successResponse(res, 200, {
+                status: true,
+                message: 'Successfully Posted Question',
+                data: saveQuestion
+              });
+            } catch (error) {
+              return errorResponse(res, 500, error.message);
+            }
+          }
 
-            const user = await User.create(req.body);
-
-            delete user.password;
-
-            return res.send({ user })
-        } catch (err) {
-            return res.status(400).send({ error: 'Registration failed.' })
-        }
+  async getAllQue(req, res) {
+    try {
+      const allQue = await model.Question.find({});
+      if (allQue.length > 0) {
+        return successResponse(res, 200, {
+          status: true,
+          message: 'All questions',
+          data: allQue
+        });
+      }
+      successResponse(res, 200, 'No questions available ');
+    } catch (error) {
+      return errorResponse(res, 500, error.message);
     }
-}
+  }
+};
