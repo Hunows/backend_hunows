@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const UserController = require('../controllers/QuestionController');
-
+const QuestionController = require('../controllers/UserController');
+const QuestionController = require('../controllers/QuestionController');
+const protect = require('../middlewares/authentication');
 
 module.exports = questionRouter = Router();
 
-questionRouter.post('/askQuestion',
-    //validação
-    //token
-);
+const questionController = new QuestionController();
+questionRouter.post('/registerAsk', questionController.registerAsk);
+questionRouter.route("/registerAsk").post(protect,questionController.registerAsk);
+questionRouter.route("/registerAsk").get(questionController.getAllQue);
 
-questionRouter.get('/',
-    controller.getAllQue
-);
+
+
