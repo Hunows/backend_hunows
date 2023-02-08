@@ -17,6 +17,14 @@ const UserSchema = new mongoose.Schema({
         required: true,
         select: false
     },
+    questions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Questions',
+    }],
+    answers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Answer',
+    }],
     createdAt: {
         type: Date,
         default: Date.now
@@ -27,12 +35,12 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function (next) {
     if (!this.isModified("password")) {
         next();
-      }
-      const salt = await bcrypt.genSalt(10);
-      this.password = await bcrypt.hash(this.password, salt);
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 })
 
 const User = mongoose.model('User', UserSchema);
