@@ -19,7 +19,17 @@ const QuestionSchema = new mongoose.Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: [true, 'question must have a User id']
+      ref: 'User',
+      require: [true, 'question must have a User id']
+    },
+    answers: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Answer',
+    }],
+    completed: {
+      type: Boolean,
+      require: true,
+      default: false,
     },
     time : {
         type : Date, 
