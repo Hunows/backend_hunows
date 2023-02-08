@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use("/api/users", routes);
 
-app.use("/registerAsk", questionRoutes);
+app.use(questionRoutes);
 
 app.use("/questionLists",questionRoutes);
 
