@@ -6,13 +6,8 @@ const { errors } = require('celebrate');
 const app = express();
 
 app.use(express.json());
-
 app.use("/api/users", routes);
-
-app.use("/registerAsk", routes);
-
-app.use("/questionLists",routes);
-
+app.use(questionRoutes);
 app.use(errors());
 
 module.exports = app;
