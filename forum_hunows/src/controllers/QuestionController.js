@@ -1,41 +1,46 @@
 const Question = require('../models/Question');
+const Answer = require('../models/Answer');
 
 module.exports = class QuestionController {
-    async registerAsk(req, res) {
-        try {
-            const { title, questionBody, tags } = req.body;
-            const { user } = req;
-            console.log(title, questionBody, tags, user._id);
-            const saveQuestion = await Question.create({
-              title,
-              questionBody,
-              tags,
-              userId: user
-            });
-            console.log(saveQuestion);
-            return successResponse(res, 200, {
-                status: true,
-                message: 'Successfully Posted Question',
-                data: saveQuestion
-              });
-            } catch (error) {
-              return res.status(500).json(error.message);
-            }
-          }
+  async registerAsk(req, res) {
+    try {
+      console.log(req.params)
+      const saveQuestion = await Question.create({
+        ...req.body,
+        userId: req.userId
+      });
+      return res.send({ saveQuestion });
+    } catch (error) {
+      return res.status(400).json({ message: "Erro criando pergunta" });
+    }
+  }
 
   async getAllQue(req, res) {
     try {
-      const allQue = await Question.find({});
+      const allQue = await Question.find().populate({
+        path: 'userId',
+        select: 'name'
+      });
       if (allQue.length > 0) {
-        return res.status(200).json({
-          status: true,
-          message: 'All questions',
-          data: allQue
-        });
+          return res.status(200).json(allQue);
       }
-      return res.status(200).json({ message: 'No questions available' });
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json(error);
+    }
+  }
+
+  async getAllId(req, res) {
+    const { id } = req.params;
+    try {
+      const question = await Question.findOne({
+        _id: id,
+      }).populate({
+        path: 'userId',
+        select: 'name'
+      });
+      return res.status(200).json(question);
+    } catch (error) {
+      return res.status(500).json(error);
     }
   }
 };
