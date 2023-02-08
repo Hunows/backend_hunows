@@ -43,4 +43,16 @@ module.exports = class QuestionController {
       return res.status(500).json(error);
     }
   }
-};
+
+  async getAllId(req, res) {
+    const { id } = req.params;
+    try {
+      const question = await model.Question.findOne({
+          _id: id,
+      })
+    return successResponse(res, 200, 'Successfully id');
+  } catch (error) {
+    return errorResponse(res, 500, error.message);
+  }
+}
+}

@@ -31,10 +31,10 @@ const QuestionSchema = new mongoose.Schema(
       require: true,
       default: false,
     },
-    time : {
-        type : Date, 
-        default: Date.now 
-      },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   
 );
