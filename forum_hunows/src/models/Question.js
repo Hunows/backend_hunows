@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const questionSchema = new Schema(
+const QuestionSchema = new mongoose.Schema(
   {
     title: {
       max: 50,
@@ -20,7 +19,17 @@ const questionSchema = new Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: [true, 'question must have a User id']
+      ref: 'User',
+      require: [true, 'question must have a User id']
+    },
+    answers: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Answer',
+    }],
+    completed: {
+      type: Boolean,
+      require: true,
+      default: false,
     },
     time : {
         type : Date, 
@@ -30,4 +39,6 @@ const questionSchema = new Schema(
   
 );
 
-module.exports = mongoose.model('question', questionSchema);
+const Question = mongoose.model('Questions', QuestionSchema);
+
+module.exports = Question;
