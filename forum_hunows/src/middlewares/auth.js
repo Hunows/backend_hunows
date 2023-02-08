@@ -21,10 +21,10 @@ const protect = async (req, res, next) => {
   }
 
   jwt.verify(token, "kmdKw9ehknwDMn29w2whn2oewQWK", (err, decoded) => {
-    if(err) {
-      return res.status(401).json({ message: 'Token inválido ou expirado' })
-    }
-    next();
+    if(err) return res.status(401).json({ message: 'Token inválido ou expirado' })  
+    
+    req.userId = decoded.id;
+    return next();
   })
 
 }
