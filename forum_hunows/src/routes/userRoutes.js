@@ -8,5 +8,7 @@ const router = express.Router();
 router.route("/").post(UserController.userRegister);
 router.route("/login").post(UserController.userLogin);
 router.route("/").get(protect, UserController.getAllUsers);
+router.route("/question").post(QuestionController.registerAsk);
+router.route("/question/listAll").get(QuestionController.getAllQue);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const app = require('./app');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://mongouser:mongopass@hunowsdb:27017')
+mongoose.connect('mongodb://localhost:27017/hunowsdb')
     .then(() => {
         console.log('Conectou ao banco!')
         app.listen(3007, function () {

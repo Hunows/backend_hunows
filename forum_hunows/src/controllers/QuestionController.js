@@ -1,40 +1,42 @@
 const User = require('../models/User');
+const Question = require('../models/Question');
 
-module.exports = class UserController {
+module.exports =  {
     async registerAsk(req, res) {
         try {
             const { title, questionBody, tags } = req.body;
             const { user } = req;
-            console.log(title, questionBody, tags,user._id);
-            const saveQuestion = await model.Question.create ({
+            console.log(title, questionBody, tags, user._id);
+            const saveQuestion = await Question.create({
               title,
               questionBody,
               tags,
-              userId: user._id
+              userId: user
             });
+            console.log(saveQuestion);
             return successResponse(res, 200, {
                 status: true,
                 message: 'Successfully Posted Question',
                 data: saveQuestion
               });
             } catch (error) {
-              return errorResponse(res, 500, error.message);
+              return res.status(500).json(error.message);
             }
-          }
+          },
 
   async getAllQue(req, res) {
     try {
-      const allQue = await model.Question.find({});
+      const allQue = await Question.find({});
       if (allQue.length > 0) {
-        return successResponse(res, 200, {
+        return res.status(200).json({
           status: true,
           message: 'All questions',
           data: allQue
         });
       }
-      successResponse(res, 200, 'No questions available ');
+      return res.status(200).json({ message: 'No questions available' });
     } catch (error) {
-      return errorResponse(res, 500, error.message);
+      return res.status(500).json(error.message);
     }
   }
 };
