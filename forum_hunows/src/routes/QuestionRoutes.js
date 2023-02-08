@@ -1,7 +1,6 @@
 const { Router } = require('express');
-const QuestionController = require('../controllers/UserController');
 const QuestionController = require('../controllers/QuestionController');
-const protect = require('../middlewares/authentication');
+const protect = require('../middlewares/auth');
 
 module.exports = questionRouter = Router();
 
