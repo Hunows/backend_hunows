@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const questionSchema = new Schema(
+const questionSchema = new mongoose.Schema(
   {
     title: {
       max: 50,
@@ -20,12 +20,20 @@ const questionSchema = new Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: [true, 'question must have a User id']
+      required: true
     },
-    time : {
-        type : Date, 
-        default: Date.now 
-      },
+    nameUser: {
+      type: mongoose.Schema.Types.nameUser,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   
 );
