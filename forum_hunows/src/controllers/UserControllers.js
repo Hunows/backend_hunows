@@ -51,6 +51,8 @@ module.exports = {
     }catch(error) {
         return res.status(500).json(error);
     }
+<<<<<<<<< Temporary merge branch 1:forum_hunows/src/controllers/UserControllers.js
 }
+=========
     }
-
+};
