@@ -1,5 +1,5 @@
 const Answer = require("../models/Answer.js");
-//const Question = require("../models/Question.js");
+const Question = require("../models/Question.js");
 
 module.exports = class AnswerQuestion {
   async answerQuestion(req, res) {
