@@ -22,7 +22,7 @@ module.exports = class QuestionController {
         select: 'name'
       });
       if (allQue.length > 0) {
-          return res.status(200).json(allQue);
+        return res.status(200).json(allQue);
       }
     } catch (error) {
       return res.status(500).json(error);
@@ -43,16 +43,4 @@ module.exports = class QuestionController {
       return res.status(500).json(error);
     }
   }
-
-  async getAllId(req, res) {
-    const { id } = req.params;
-    try {
-      const question = await model.Question.findOne({
-          _id: id,
-      })
-    return successResponse(res, 200, 'Successfully id');
-  } catch (error) {
-    return errorResponse(res, 500, error.message);
-  }
-}
 }
