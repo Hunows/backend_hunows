@@ -10,6 +10,6 @@ app.use(routes);
 app.use(questionRoutes);
 app.use("/questionLists", questionRoutes);
 
-app.use(errors());
+app.use("/registerAsk", routes);
 
 module.exports = app;
