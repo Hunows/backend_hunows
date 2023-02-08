@@ -6,5 +6,5 @@ module.exports = answerRouter = Router();
 
 const answerController = new AnswerController();
 answerRouter
-  .route("/question/{questionId}")
+  .route("/question/{questionId}/answers")
   .post(protect, answerController.answerQuestion);
