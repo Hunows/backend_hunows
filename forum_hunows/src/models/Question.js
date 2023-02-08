@@ -31,12 +31,12 @@ const QuestionSchema = new mongoose.Schema(
       require: true,
       default: false,
     },
-    updatedAt: {
+    time: {
       type: Date,
-      default: Date.now,
+      default: Date.now
     },
   },
-  
+
 );
 
 const Question = mongoose.model('Questions', QuestionSchema);
