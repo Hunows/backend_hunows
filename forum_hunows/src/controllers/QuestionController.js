@@ -1,7 +1,6 @@
-const User = require('../models/User');
 const Question = require('../models/Question');
 
-module.exports =  {
+module.exports = class QuestionController {
     async registerAsk(req, res) {
         try {
             const { title, questionBody, tags } = req.body;
@@ -22,7 +21,7 @@ module.exports =  {
             } catch (error) {
               return res.status(500).json(error.message);
             }
-          },
+          }
 
   async getAllQue(req, res) {
     try {

@@ -1,4 +1,5 @@
 const express = require('express');
+const questionRoutes = require('./routes/QuestionRoutes');
 const routes = require('./routes/userRoutes');
 const { errors } = require('celebrate');
 
@@ -8,8 +9,10 @@ app.use(express.json());
 
 app.use("/api/users", routes);
 
-app.use(errors());
+app.use("/registerAsk", questionRoutes);
 
-app.use(express.json());
+app.use("/questionLists",questionRoutes);
+
+app.use(errors());
 
 module.exports = app;
