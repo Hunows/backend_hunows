@@ -1,12 +1,12 @@
-const { Router } = require('express');
-const UserController = require('../controllers/QuestionController');
+const express = require("express");
 const UserController = require('../controllers/UserController');
-const protect = require('../middlewares/authentication');
+const protect = require('../middlewares/auth');
+const userValidations = require('../schemas/userSchema');
 
-module.exports = userRouter = Router();
+const router = express.Router();
 
-const userController = new UserController();
-userRouter.post('/register', userController.registerAccount);
-userRouter.route("/register").post(userController.registerAccount);
-userRouter.route("/users").get(protect, userController.all);
-userRouter.route("/login").post(userController.userLogin);
+router.route("/").post(userValidations, UserController.userRegister);
+router.route("/login").post(UserController.userLogin);
+router.route("/").get(protect, UserController.getAllUsers);
+
+module.exports = router;
