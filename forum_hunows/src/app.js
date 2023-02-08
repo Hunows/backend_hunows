@@ -1,20 +1,15 @@
-const express = require('express');
-const questionRoutes = require('./routes/QuestionRoutes');
-const routes = require('./routes/userRoutes');
-const { errors } = require('celebrate');
-
+const express = require("express");
+const questionRoutes = require("./routes/QuestionRoutes");
+const routes = require("./routes/userRoutes");
+const { errors } = require("celebrate");
 
 const app = express();
-
 app.use(express.json());
 
-app.use("/api/users", routes);
+app.use(routes);
+app.use(questionRoutes);
+app.use("/questionLists", questionRoutes);
 
 app.use(errors());
-
-
-app.use(express.json(),
-    questionRoutes)
-
 
 module.exports = app;

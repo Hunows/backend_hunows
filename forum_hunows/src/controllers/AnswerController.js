@@ -11,15 +11,13 @@ module.exports = class AnswerQuestion {
         .json({
           message: "Your reply has been registered successfully.",
           Answer,
-        }).catch((error) => {
+        })
+        .catch((error) => {
           res.status(400).json({ status: "error", message: error.message });
         });
     }
   }
 };
 
-
 //essa pergunta foi resolvida?
-module.exports = class QuestionSolved {
-
-}
+module.exports = class QuestionSolved {};
