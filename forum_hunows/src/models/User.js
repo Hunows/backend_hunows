@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     createdAt: {
         type: Date,
@@ -26,14 +27,12 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-UserSchema.methods.matchPassword = async function(enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
-}
-
 UserSchema.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.password, parseInt(process.env.SALT));
-    this.password = hash;
-    next();
+    if (!this.isModified("password")) {
+        next();
+      }
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
 })
 
 const User = mongoose.model('User', UserSchema);
