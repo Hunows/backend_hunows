@@ -1,10 +1,10 @@
-const { Router } = require("express");
-const AnswerController = require("../controllers/AnswerController");
-const protect = require("../middlewares/auth");
+const { Router } = require('express');
+const AnswerQuestion = require('../controllers/AnswerController');
+const protect = require('../middlewares/auth');
 
 module.exports = answerRouter = Router();
 
-const answerController = new AnswerController();
-answerRouter
-  .route("/question/{questionId}/answers")
-  .post(protect, answerController.answerQuestion);
+const questionController = new AnswerQuestion();
+answerRouter.route('/questions/:id/answers').post(protect, questionController.answerQuestion);
+answerRouter.route('/answers').get(questionController.getAllAnswers);
+
