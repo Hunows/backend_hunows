@@ -46,16 +46,26 @@ module.exports = class QuestionController {
   }
 
   async registerStatus(req, res) {
-    const questionId = req.params;
-    const question = Question.findOne({
-     _id: questionId})
-     if(!question){
-      return res.status(404).json({message: 'question not found'})
-     }
-     const {questionStatus,answerId} = req.body;
-     question.update({resolved: questionStatus,answer_id: answerId})
+    try {
+      const { id } = req.params;
+      const question = Question.findByIdAndUpdate({
+        _id: id,
+        ...req.body
+        })
+        return res.send({question});
+    } catch (error) {
+      return res.status(400).json({ message: "Erro atualizando pergunta" });
+    }
+    
 
-     return res.status(200).json(question);
+    
+    //  if(!question){
+    //   return res.status(404).json({message: 'question not found'})
+    //  }
+    //  const {questionStatus,answerId} = req.body;
+    //  question.update({resolved: questionStatus,answer_id: answerId})
+
+    //  return res.status(200).json(question);
 
   }
 

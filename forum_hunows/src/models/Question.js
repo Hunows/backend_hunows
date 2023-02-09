@@ -27,7 +27,7 @@ const QuestionSchema = new mongoose.Schema(
       ref: 'Answer',
     }],
     questionStatus: {
-      type: boolean,
+      type: Boolean,
       required: true
     },
     createdAt: {
