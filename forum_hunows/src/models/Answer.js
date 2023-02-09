@@ -7,7 +7,7 @@ const AnswerSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, "You need an account to answer this question"],
   },
-  //precisamos de um Id de questions para vincular a resposta a essa pergunta?
+
   questionId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Questions',
