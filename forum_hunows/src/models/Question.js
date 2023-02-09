@@ -1,3 +1,4 @@
+const { boolean } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -24,6 +25,14 @@ const questionSchema = new mongoose.Schema(
     },
     nameUser: {
       type: mongoose.Schema.Types.nameUser,
+      required: true
+    },
+    answerId:{
+      type: mongoose.Schema.Types.id_Answer,
+      required: true
+    },
+    questionStatus: {
+      type: boolean,
       required: true
     },
     createdAt: {

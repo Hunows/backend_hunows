@@ -5,13 +5,14 @@ module.exports = class QuestionController {
         try {
             const { title, questionBody, tags } = req.body;
             const { user } = req;
-            console.log(title, questionBody, tags,user._id,user._name);
+            console.log(title, questionBody, tags,user._id,user._name,answerId._id);
             const saveQuestion = await model.Question.create ({
               title,
               questionBody,
               tags,
               userId: user._id,
-              nameUser:user._nome
+              nameUser:user._nome,
+              answerId: answer._id
             });
             return successResponse(res, 200, {
                 status: true,
@@ -50,4 +51,25 @@ module.exports = class QuestionController {
     return errorResponse(res, 500, error.message);
   }
 }
+
+async registerStatus(req, res) {
+  try {
+      const { questionStatus } = req.body;
+      console.log(questionStatus);
+      const saveQuestionStatus = await Question.updateOne({
+        required: boolean,
+      });
+      return successResponse(res,  {
+          status: true,
+          message: 'Accepted answer',
+          data: saveQuestionStatus
+        });
+      } catch (error) {
+        return successResponse(res, {
+          status: false,
+          message: 'Not accepted answer',
+          data: saveQuestionStatus
+        });
+      }
+    }
 }
