@@ -3,8 +3,6 @@ services:
   forum_hunows:
     image: hunows/forum_hunows
     build: forum_hunows
-    volumes:
-      - ./forum_hunows:/app
     ports:
       - 3007:3007
 
