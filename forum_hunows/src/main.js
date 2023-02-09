@@ -1,12 +1,13 @@
 const app = require("./app");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 mongoose
-  .connect("mongodb://mongouser:mongopass@hunowsdb:27017")
+  .connect(process.env.DATABASE_URL)
   .then(() => {
-    console.log("Conectou ao banco!");
-    app.listen(3007, function () {
-      console.log("Accounts server is running in port 3007");
+    console.log("Database is connected!");
+    app.listen(process.env.PORT, function () {
+      console.log("Accounts server is running on port", `${process.env.PORT}`);
     });
   })
   .catch((err) => console.log(err));
