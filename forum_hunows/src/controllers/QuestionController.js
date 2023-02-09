@@ -45,41 +45,14 @@ module.exports = class QuestionController {
     }
   }
 
-  // async registerStatus(req, res) {
-  //   try {
-  //     const { id } = req.params;
-  //     const question = Question.findByIdAndUpdate({
-  //       _id: id,
-  //       ...req.body
-  //       })
-  //       return res.send({question});
-  //   } catch (error) {
-  //     return res.status(400).json({ message: "Erro atualizando pergunta" });
-  //   }
-    
-
-    
-  //   //  if(!question){
-  //   //   return res.status(404).json({message: 'question not found'})
-  //   //  }
-  //   //  const {questionStatus,answerId} = req.body;
-  //   //  question.update({resolved: questionStatus,answer_id: answerId})
-
-  //   //  return res.status(200).json(question);
-
-  // }
-
-
   async registerStatus(req, res) {
     try {
-        const { questionId,answersId } = req.params;
-        const { questionStatus} = req.body;
-        await Question.findOneAndUpdate({ questionId,answersId }, {questionStatus});
-        return res.status(200).json({message: 'Pergunta resolvida', questionStatus});
+      const { questionId, answersId } = req.params;
+      const { questionStatus } = req.body;
+      await Question.findOneAndUpdate({ questionId, answersId }, { questionStatus });
+      return res.status(200).json({ message: 'Pergunta resolvida', questionStatus });
     } catch (error) {
-        return res.status(500).json(error);
+      return res.status(500).json(error);
     }
-}
-
-
+  }
 }
