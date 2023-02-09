@@ -75,7 +75,7 @@ module.exports = class QuestionController {
         const { questionId,answersId } = req.params;
         const { questionStatus} = req.body;
         await Question.findOneAndUpdate({ questionId,answersId }, {questionStatus});
-        return res.status(204).end();
+        return res.status(200).json({message: 'Pergunta resolvida', questionStatus});
     } catch (error) {
         return res.status(500).json(error);
     }
