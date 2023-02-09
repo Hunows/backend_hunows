@@ -1,23 +1,36 @@
 const Answer = require("../models/Answer.js");
-const Question = require("../models/Question.js");
 
 module.exports = class AnswerQuestion {
   async answerQuestion(req, res) {
-    const answer = await Question;
-    if ((Question, userId)) {
-      answer.create({ answerBody });
-      return res
-        .status(201)
-        .json({
-          message: "Your reply has been registered successfully.",
-          Answer,
-        })
-        .catch((error) => {
-          res.status(400).json({ status: "error", message: error.message });
-        });
+    try {
+      const { id } = req.params;
+      const savedAnswer = await Answer.create({
+        ...req.body,
+        userId: req.userId,
+        questionId: id
+      });
+      return res.send({ savedAnswer });
+    } catch (error) {
+      return res.status(400).json({ message: "Erro criando pergunta" });
+    }
+  }
+
+  async getAllAnswers(req, res) {
+    try {
+      const listAllAnswers = await Answer.find()
+        .populate(
+          {
+            path: 'userId',
+            select: 'name'
+          }
+        );
+
+      if (listAllAnswers.length > 0) {
+        return res.status(200).json(listAllAnswers);
+      }
+
+    } catch (error) {
+      return res.status(500).json(error);
     }
   }
 };
-
-//essa pergunta foi resolvida?
-module.exports = class QuestionSolved {};
