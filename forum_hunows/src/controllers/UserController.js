@@ -60,6 +60,25 @@ module.exports = {
         } catch (error) {
             return res.status(500).json(error);
         }
+    },
+    async deleteUserById(req, res) {
+        try {
+            const { id } = req.params;
+            await User.deleteOne({ id });
+            return res.status(204).end();
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    },
+    async putUserById(req, res) {
+        try {
+            const { id } = req.params;
+            const { name, email, password } = req.body;
+            await User.findOneAndUpdate({ id }, { name, email, password });
+            return res.status(204).end();
+        } catch (error) {
+            return res.status(500).json(error);
+        }
     }
-}
+}    
 

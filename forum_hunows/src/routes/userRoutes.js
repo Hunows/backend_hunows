@@ -10,5 +10,8 @@ router.route("/register").post(userValidations, UserController.userRegister);
 router.route("/login").post(UserController.userLogin);
 router.route("/").get(protect, UserController.getAllUsers);
 router.route("/:id").get(protect, UserController.getUserById);
+router.route("/:id").delete(protect,UserController.deleteUserById);
+router.route("/:id").put(protect,UserController.putUserById);
+
 
 module.exports = router;
