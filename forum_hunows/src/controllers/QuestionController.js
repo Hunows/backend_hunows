@@ -43,4 +43,25 @@ module.exports = class QuestionController {
       return res.status(500).json(error);
     }
   }
+
+async registerStatus(req, res) {
+  try {
+      const { questionStatus } = req.body;
+      console.log(questionStatus);
+      const saveQuestionStatus = await Question.updateOne({
+        required: boolean,
+      });
+      return successResponse(res,  {
+          status: true,
+          message: 'Accepted answer',
+          data: saveQuestionStatus
+        });
+      } catch (error) {
+        return successResponse(res, {
+          status: false,
+          message: 'Not accepted answer',
+          data: saveQuestionStatus
+        });
+      }
+    }
 }
