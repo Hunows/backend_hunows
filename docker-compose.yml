@@ -1,0 +1,17 @@
+version: '3'
+services:
+  forum_hunows:
+    image: hunows/forum_hunows
+    build: forum_hunows
+    ports:
+      - 3007:3007
+
+  hunowsdb:
+    image: mongo
+    container_name: hunowsdb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongouser
+      - MONGO_INITDB_ROOT_PASSWORD=mongopass
+      - MONGO_INITDB_DATABASE=hunowsdb
+    ports:
+      - 27017:27017
