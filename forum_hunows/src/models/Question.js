@@ -1,8 +1,7 @@
 const { boolean } = require('joi');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const questionSchema = new mongoose.Schema(
+const QuestionSchema = new mongoose.Schema(
   {
     title: {
       max: 50,
@@ -21,11 +20,17 @@ const questionSchema = new mongoose.Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true
+      ref: 'User',
+      require: [true, 'question must have a User id']
     },
-    nameUser: {
-      type: mongoose.Schema.Types.nameUser,
-      required: true
+    answers: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Answer',
+    }],
+    completed: {
+      type: Boolean,
+      require: true,
+      default: false,
     },
     answerId:{
       type: mongoose.Schema.Types.id_Answer,
@@ -35,16 +40,14 @@ const questionSchema = new mongoose.Schema(
       type: boolean,
       required: true
     },
-    createdAt: {
+    time: {
       type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
+      default: Date.now
     },
   },
-  
+
 );
 
-module.exports = mongoose.model('question', questionSchema);
+const Question = mongoose.model('Questions', QuestionSchema);
+
+module.exports = Question;

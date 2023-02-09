@@ -1,56 +1,48 @@
 const Question = require('../models/Question');
+// const Answer = require('../models/Answer');
 
 module.exports = class QuestionController {
-    async registerAsk(req, res) {
-        try {
-            const { title, questionBody, tags } = req.body;
-            const { user } = req;
-            console.log(title, questionBody, tags,user._id,user._name,answerId._id);
-            const saveQuestion = await model.Question.create ({
-              title,
-              questionBody,
-              tags,
-              userId: user._id,
-              nameUser:user._nome,
-              answerId: answer._id
-            });
-            return successResponse(res, 200, {
-                status: true,
-                message: 'Successfully Posted Question',
-                data: saveQuestion
-              });
-            } catch (error) {
-              return errorResponse(res, 500, error.message);
-            }
-          }
+  async registerAsk(req, res) {
+    try {
+      console.log(req.params)
+      const saveQuestion = await Question.create({
+        ...req.body,
+        userId: req.userId
+      });
+      return res.send({ saveQuestion });
+    } catch (error) {
+      return res.status(400).json({ message: "Erro criando pergunta" });
+    }
+  }
 
   async getAllQue(req, res) {
     try {
-      const allQue = await model.Question.find({});
+      const allQue = await Question.find().populate({
+        path: 'userId',
+        select: 'name'
+      });
       if (allQue.length > 0) {
-        return successResponse(res, 200, {
-          status: true,
-          message: 'All questions',
-          data: allQue
-        });
+        return res.status(200).json(allQue);
       }
-      successResponse(res, 200, 'No questions available ');
     } catch (error) {
-      return errorResponse(res, 500, error.message);
+      return res.status(500).json(error);
     }
   }
 
   async getAllId(req, res) {
     const { id } = req.params;
     try {
-      const question = await model.Question.findOne({
-          _id: id,
-      })
-    return successResponse(res, 200, 'Successfully id');
-  } catch (error) {
-    return errorResponse(res, 500, error.message);
+      const question = await Question.findOne({
+        _id: id,
+      }).populate({
+        path: 'userId',
+        select: 'name'
+      });
+      return res.status(200).json(question);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
   }
-}
 
 async registerStatus(req, res) {
   try {
