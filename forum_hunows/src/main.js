@@ -1,5 +1,9 @@
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./swagger.json');
 const app = require("./app");
 const mongoose = require("mongoose");
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 mongoose
   .connect("mongodb://mongouser:mongopass@hunowsdb:27017")
